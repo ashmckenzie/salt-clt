@@ -1,5 +1,4 @@
 require 'uri'
-require 'json'
 require 'openssl'
 require 'net/http'
 

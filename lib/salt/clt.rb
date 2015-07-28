@@ -1,4 +1,6 @@
-require "salt/clt/version"
+require 'json'
+
+require 'salt/clt/version'
 require 'salt/clt/config'
 require 'salt/clt/cli'
 require 'salt/clt/errors'

@@ -26,7 +26,8 @@ module Salt
         option([ '-t', '--target' ], 'TARGET', 'Target to execute function over', default: '*')
 
         def execute
-          puts API.new.execute!(function, target, args).to_json
+          res = API.new.execute!(function, target, args)
+          puts JSON.pretty_generate(res)
         end
       end
 
