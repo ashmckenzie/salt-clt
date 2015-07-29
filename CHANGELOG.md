@@ -1,3 +1,7 @@
+## v0.2.1 / 2015-07-30
+
+* [BUG] Bad merge left API#request with missing target parameter
+
 ## v0.2.0 / 2015-07-30
 
 * API tune up
