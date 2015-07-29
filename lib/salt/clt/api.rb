@@ -67,7 +67,7 @@ module Salt
         def request(function, args)
           login! unless auth_token
           uri = URI(base_url)
-          data = { client: 'local', tgt: target, expr_form: 'compound', fun: function }
+          data = { client: client_mode, tgt: target, expr_form: 'compound', fun: function }
           data['arg'] = args if args
           headers = { 'X-Auth-Token' => auth_token }
           http_post!(uri, data, headers)
