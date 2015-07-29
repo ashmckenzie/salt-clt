@@ -5,15 +5,22 @@ require 'net/http'
 module Salt
   module CLT
     class API
+      DEFAULT_MODE = 'local'
 
       def execute!(function, target, args)
         request(function, target, args)
+      def initialize(client_mode = DEFAULT_MODE)
+        @client_mode = client_mode
+      end
+
       rescue Errors::HTTPUnauthorized
         clear_x_auth_token!
         request(function, target, args)
       end
 
       private
+
+        attr_reader :client_mode
 
         def login_params
           @login_params ||= begin
