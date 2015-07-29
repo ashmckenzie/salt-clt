@@ -7,15 +7,16 @@ module Salt
     class API
       DEFAULT_MODE = 'local'
 
-      def execute!(function, target, args)
-        request(function, target, args)
       def initialize(client_mode = DEFAULT_MODE)
         @client_mode = client_mode
       end
 
+      def execute!(target, function, args)
+        request(target, function, args)
       rescue Errors::HTTPUnauthorized
         clear_x_auth_token!
-        request(function, target, args)
+        request(target, function, args)
+      end
       end
 
       private
@@ -63,7 +64,7 @@ module Salt
           @ssl_verify_mode ||= $config.settings.api.ignore_ssl ? OpenSSL::SSL::VERIFY_NONE : OpenSSL::SSL::VERIFY_PEER
         end
 
-        def request(function, target, args)
+        def request(function, args)
           login! unless auth_token
           uri = URI(base_url)
           data = { client: 'local', tgt: target, expr_form: 'compound', fun: function }
