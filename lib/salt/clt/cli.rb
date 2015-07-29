@@ -39,9 +39,11 @@ module Salt
         end
       end
 
+      class LookupJobCommand < AbstractCommand
+        parameter('JOB_ID', 'Job ID', required: true)
 
         def execute
-          res = API.new.execute!(function, target, args)
+          res = API.new.lookup_job(job_id)
           puts JSON.pretty_generate(res)
         end
       end
@@ -49,6 +51,7 @@ module Salt
       class MainCommand < AbstractCommand
         subcommand %w(c console), 'Run a console', ConsoleCommand
         subcommand %w(e exec), 'Execute a command', ExecCommand
+        subcommand %w(lj lookup-job), 'Lookup a job', LookupJobCommand
       end
     end
   end

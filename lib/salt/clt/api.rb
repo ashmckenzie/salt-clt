@@ -17,6 +17,12 @@ module Salt
         clear_x_auth_token!
         request(target, function, args)
       end
+
+      def lookup_job(job_id)
+        jobs(job_id)
+      rescue Errors::HTTPUnauthorized
+        clear_x_auth_token!
+        jobs(job_id)
       end
 
       private
@@ -35,6 +41,10 @@ module Salt
 
         def base_url
           $config.settings.api.url
+        end
+
+        def jobs_url(job_id)
+          '%s/jobs/%s' % [ $config.settings.api.url, job_id ]
         end
 
         def login_url
@@ -73,6 +83,12 @@ module Salt
           http_post!(uri, data, headers)
         end
 
+        def jobs(job_id)
+          login! unless auth_token
+          uri = URI(jobs_url(job_id))
+          headers = { 'X-Auth-Token' => auth_token }
+          http_get!(uri, headers)
+        end
 
         def http_post!(uri, data, headers)
           req = Net::HTTP::Post.new(uri)
