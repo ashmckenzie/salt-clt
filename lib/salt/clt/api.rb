@@ -74,7 +74,7 @@ module Salt
           @ssl_verify_mode ||= $config.settings.api.ignore_ssl ? OpenSSL::SSL::VERIFY_NONE : OpenSSL::SSL::VERIFY_PEER
         end
 
-        def request(function, args)
+        def request(target, function, args)
           login! unless auth_token
           uri = URI(base_url)
           data = { client: client_mode, tgt: target, expr_form: 'compound', fun: function }
