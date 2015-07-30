@@ -90,13 +90,13 @@ module Salt
           http_get!(uri, headers)
         end
 
-        def http_post!(uri, data, headers)
+        def http_post!(uri, data, headers={})
           req = Net::HTTP::Post.new(uri)
           req.set_form_data(data)
           http!(req, headers)
         end
 
-        def http_get!(uri, headers)
+        def http_get!(uri, headers={})
           http!(Net::HTTP::Get.new(uri), headers)
         end
 
