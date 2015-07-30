@@ -1,3 +1,7 @@
+## v0.2.2 / 2015-07-30
+
+* [BUG] Fixed bug with API#login! when logged out
+
 ## v0.2.1 / 2015-07-30
 
 * [BUG] Bad merge left API#request with missing target parameter
